@@ -3,6 +3,7 @@ import {Grid, Container, Paper, Avatar, Typography, TextField, Button} from '@ma
 import { makeStyles } from '@material-ui/core/styles'
 import fondo from './assets/img/fondo.png'
 import {LockOutlined as LockOutlined} from '@material-ui/core'
+import apiBaseUrl from './shared/utils/api';
 
 
 const useStyles = makeStyles(theme => ({
@@ -15,10 +16,10 @@ const useStyles = makeStyles(theme => ({
     },
     container:{
       opacity: '0.9',
-      height: '60%',
+      height: '70%',
       marginTop: theme.spacing(10),
       [theme.breakpoints.down(400 + theme.spacing(2) + 2)]:{
-        marginTop: 0,
+        marginTop: 5,
         width: '100%',
         height: '100%'
       }
@@ -42,26 +43,37 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-export const App = () => {
-  
-  const [body, setBody] = useState({usuario: '', passwd: ''})
-  const classes = useStyles()
-
-  const handleChange = (event) =>{
-     console.log(event.target.value)
-     setBody({
-       ...body,
-       [event.target.name]: event.target.value
-     })
+const App = () => {
+  const [usuario, setUsuario] = useState ("");
+  const [passwd, setPasswd] = useState ("");
+  const login = async () =>{
+    const userData ={
+      usuario: usuario,
+      passwd: passwd
+    }
+    console.log(userData)
+    try {
+      const response = await fetch(`${apiBaseUrl}/App`,{
+          method: 'POST',
+          body: JSON.stringify(userData),
+          headers: {
+            'Content-Type': 'application/json'
+          },
+      });
+      const user = await response.json();
+      console.log(usuario);
+    }
+    catch (e){
+      console.log(e)
+    }
   }
-
   return (
-    <Grid container component='main' className={classes.root}>
-        <Container component={Paper} elevation={5} maxWidth='xs' className={classes.container} >
-          <div className={classes.div}>
-            <Avatar className={classes.avatar} />
+    <Grid container component='main' className={useStyles.root}>
+        <Container component={Paper} elevation={5} maxWidth='xs' className={useStyles.container} >
+          <div className={useStyles.div}>
+            <Avatar className={useStyles.avatar} />
             <Typography component='h1' variant='h5'>¿Quien Eres?</Typography>
-            <form className={classes.form}>
+            <form className={useStyles.form}>
               <TextField
                   fullWidth
                   autoFocus
@@ -70,8 +82,7 @@ export const App = () => {
                   variant='outlined'
                   label='Usuario'
                   name='usuario'
-                  value={body.usuario}
-                  onChange={handleChange}
+                 
               />
               <TextField
                   fullWidth
@@ -81,8 +92,8 @@ export const App = () => {
                   variant='outlined'
                   label='Contraseña'
                   name='passwd'
-                  value={body.passwd}
-                  onChange={handleChange}
+                  
+                  
               />
               <Button
                 fullWidth
@@ -96,7 +107,7 @@ export const App = () => {
                 fullWidth
                 variant='contained'
                 color='primary'
-                className={classes.button2}
+                className={useStyles.button2}
                 >
                   yo quiero!
               </Button>
