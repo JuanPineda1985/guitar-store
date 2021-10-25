@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-export const App = () => {
+export const loginPage = () => {
   
   const [body, setBody] = useState({usuario: '', passwd: ''})
   const classes = useStyles()
@@ -107,4 +107,4 @@ export const App = () => {
   )
 }
 
-export default App
+export default loginPage;
