@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     },
     container:{
       opacity: '0.9',
-      height: '70%',
+      height: '60%',
       marginTop: theme.spacing(10),
       [theme.breakpoints.down(400 + theme.spacing(2) + 2)]:{
         marginTop: 5,
@@ -46,6 +46,8 @@ const useStyles = makeStyles(theme => ({
 const App = () => {
   const [usuario, setUsuario] = useState ("");
   const [passwd, setPasswd] = useState ("");
+  const classes = useStyles()
+
   const login = async () =>{
     const userData ={
       usuario: usuario,
@@ -68,12 +70,12 @@ const App = () => {
     }
   }
   return (
-    <Grid container component='main' className={useStyles.root}>
-        <Container component={Paper} elevation={5} maxWidth='xs' className={useStyles.container} >
-          <div className={useStyles.div}>
-            <Avatar className={useStyles.avatar} />
+    <Grid container component='main' className={classes.root}>
+        <Container component={Paper} elevation={5} maxWidth='xs' className={classes.container} >
+          <div className={classes.div}>
+            <Avatar className={classes.Avatar} />
             <Typography component='h1' variant='h5'>¿Quien Eres?</Typography>
-            <form className={useStyles.form}>
+            <form className={classes.form}>
               <TextField
                   fullWidth
                   autoFocus
@@ -107,7 +109,7 @@ const App = () => {
                 fullWidth
                 variant='contained'
                 color='primary'
-                className={useStyles.button2}
+                className={classes.button2}
                 >
                   yo quiero!
               </Button>
